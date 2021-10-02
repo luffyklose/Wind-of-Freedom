@@ -17,6 +17,7 @@ public class Button : MonoBehaviour
         
     }
     
+    //Jump to scene based on scene name
     public void GoToScene(string scene)
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene, LoadSceneMode.Single);

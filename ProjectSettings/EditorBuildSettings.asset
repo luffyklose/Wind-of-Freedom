@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GameplayScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 38458748cb862284c981b15ba302d5ca
   - enabled: 1
-    path: Assets/Scenes/GameOverScene.unity
-    guid: 062801daf4d169b4a9782fa94cdd1b78
-  - enabled: 1
     path: Assets/Scenes/Instruction.unity
     guid: a48a75152fb3baa499c49a10eb5d050d
+  - enabled: 1
+    path: Assets/Scenes/GameplayScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/GameOverScene.unity
+    guid: 062801daf4d169b4a9782fa94cdd1b78
   m_configObjects: {}
