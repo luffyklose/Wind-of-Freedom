@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "emulator-5554",
         "name": "com.GreyRat.WindofFreedom",
-        "processId": 3653,
+        "processId": 3867,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -12,6 +12,30 @@
             "deviceId": "emulator-5554",
             "name": "com.GreyRat.WindofFreedom",
             "processId": 3653,
+            "exited": false
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.GreyRat.WindofFreedom",
+            "processId": 3209,
+            "exited": false
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.GreyRat.WindofFreedom",
+            "processId": 3412,
+            "exited": false
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.GreyRat.WindofFreedom",
+            "processId": 3682,
+            "exited": false
+        },
+        {
+            "deviceId": "emulator-5554",
+            "name": "com.GreyRat.WindofFreedom",
+            "processId": 3867,
             "exited": false
         }
     ],
