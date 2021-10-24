@@ -18,6 +18,7 @@ public class Slime : MonoBehaviour
     private float AttackCounter = 0.0f;
     private bool isFacingRight = true;
     private bool isHit = false;
+    private bool isActive = true;
 
     [Header("Attribute")] 
     public float MaxHP;
@@ -46,12 +47,14 @@ public class Slime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!isActive)
+            return;
         AttackCounter += Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        if (isHit)
+        if (isHit || !isActive)
         {
             return;
         }
@@ -218,14 +221,8 @@ public class Slime : MonoBehaviour
         }
         if (HP <= 0.0f)
         {
-            if (HasKey)
-            {
-                Instantiate(NewKey, transform.position, Quaternion.identity);
-            }
-
-            Player.AddScore(score);
-            audioSource.PlayOneShot(DieFX);
-            this.gameObject.SetActive(false);
+            Debug.Log("yinggaisile");
+            StartCoroutine(Die());
         }
         else
         {
@@ -237,5 +234,20 @@ public class Slime : MonoBehaviour
     {
         yield return new WaitForSeconds(HitRecoverTime);
         isHit = false;
+    }
+
+    private IEnumerator Die()
+    {
+        Debug.Log("sile");
+        isActive = false;
+        if (HasKey)
+        {
+            Instantiate(NewKey, transform.position, Quaternion.identity);
+        }
+
+        Player.AddScore(score);
+        audioSource.PlayOneShot(DieFX);
+        yield return new WaitForSeconds(1.0f);
+        this.gameObject.SetActive(false);
     }
 }

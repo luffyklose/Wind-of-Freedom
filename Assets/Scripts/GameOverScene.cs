@@ -8,6 +8,10 @@ public class GameOverScene : MonoBehaviour
 {
     public TMP_Text WinText;
     public TMP_Text ScoreText;
+
+    private AudioSource audioSource;
+    public AudioClip WinMusic;
+    public AudioClip LoseMusic;
     
     // Start is called before the first frame update
     void Start()
@@ -16,10 +20,12 @@ public class GameOverScene : MonoBehaviour
         if (isWin)
         {
             WinText.text = "YOU WIN";
+            //audioSource.clip = WinMusic;
         }
         else
         {
             WinText.text = "GAME OVER";
+            //audioSource.clip = LoseMusic;
         }
 
         ScoreText.text = "Score: " + GameObject.Find("GameController").GetComponent<LevelData>().Score.ToString();

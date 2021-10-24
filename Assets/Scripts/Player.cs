@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     public AudioClip AttackFX;
     public AudioClip BeHitFX;
     public AudioClip DieFX;
+    public AudioClip PickUpFX;
     
 
     // Start is called before the first frame update
@@ -78,6 +79,12 @@ public class Player : MonoBehaviour
             //Debug.Log("Attack");
             StartCoroutine(Attack());
         }
+        
+        //test code
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            StartCoroutine(Die());
+        }
     }
 
     // Update is called once per frame
@@ -100,20 +107,20 @@ public class Player : MonoBehaviour
     private void Move()
     {
         //Basic Movement Scripts
-        // m_rigidbody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        //m_rigidbody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         Vector2 input = playerInput.actions["Move"].ReadValue<Vector2>();
         m_rigidbody.velocity = input;
         m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_moveSpeed;
 
         if (m_rigidbody.velocity.magnitude > Double.Epsilon)
         {
-            if (Input.GetAxisRaw ("Horizontal") > 0.5f && !b_isFacingRight) 
+            if (input.x > 0.5f && !b_isFacingRight) 
             {
                 Vector3 scale = transform.localScale;
                 scale.x *= -1;
                 transform.localScale = scale;
                 b_isFacingRight = true;
-            } else if (Input.GetAxisRaw("Horizontal") < 0.5f && b_isFacingRight) 
+            } else if (input.x < 0.5f && b_isFacingRight) 
             {
                 Vector3 scale = transform.localScale;
                 scale.x *= -1;
@@ -205,6 +212,10 @@ public class Player : MonoBehaviour
     public void setHasKey(bool haskey)
     {
         b_hasKey = haskey;
+        if (haskey)
+        {
+            audiosource.PlayOneShot(PickUpFX);
+        }
     }
 
     public bool getHasKey()

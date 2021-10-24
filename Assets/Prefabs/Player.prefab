@@ -265,10 +265,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_moveSpeed: 5
   b_isAlive: 0
-  m_rigidbody: {fileID: 0}
-  m_animator: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  color: {r: 0, g: 0, b: 0, a: 0}
   MaxHP: 3
   AttackData: 15
   Hearts: []
@@ -278,6 +274,7 @@ MonoBehaviour:
   AttackFX: {fileID: 8300000, guid: cd65c03ed29ce4142a2f0b9cd0857689, type: 3}
   BeHitFX: {fileID: 8300000, guid: b74b896f4954a2b44a299d1c163f1e2a, type: 3}
   DieFX: {fileID: 8300000, guid: 2fd8db74171f6c04da6910e9c2f05b73, type: 3}
+  PickUpFX: {fileID: 8300000, guid: 20abc6f35d154f24482241a888e803bf, type: 3}
 --- !u!1 &8656566311547094953
 GameObject:
   m_ObjectHideFlags: 0
