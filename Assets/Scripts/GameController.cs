@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FileName: GameController.cs
+//Author: Zihan Xu
+//Student Number: 101288760
+//Last Modified On : 10/23/2021
+//Description : Class for GameController
+//Revision History:
+//10/23/2021: Implement feature of changing scenes and setting level data
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +24,7 @@ public class GameController : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    // Load GameoverScene when player is died in GameplayScene. Store level data in LevelData.
     void Update()
     {
         if (SceneManager.GetActiveScene().name == "GameplayScene")

@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FileName: PlayerHitBox.cs
+//Author: Zihan Xu
+//Student Number: 101288760
+//Last Modified On : 10/23/2021
+//Description : Class for hit boxes of player
+//Revision History:
+//10/23/2021: Implement feature of checking collision with enemies
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,6 +30,7 @@ public class PlayerHitBox : MonoBehaviour
         
     }
 
+    //Check collision of player
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("enter!"+this.name);
@@ -48,9 +58,9 @@ public class PlayerHitBox : MonoBehaviour
                 default:
                     break;
             }
-            
             other.GetComponent<Slime>().DecHP(Owner.GetComponent<Player>().getAttack(),BeHitDir);
 
+            //Implement knockback effects
             Rigidbody2D enemyRigidbody = other.GetComponent<Rigidbody2D>();
             if (enemyRigidbody != null)
             {
@@ -61,6 +71,7 @@ public class PlayerHitBox : MonoBehaviour
         }
     }
 
+    //Knockback for a certain time
     private IEnumerator StepBack(Rigidbody2D enemy)
     {
         if (enemy != null)

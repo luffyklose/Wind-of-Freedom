@@ -1,3 +1,12 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FileName: GameOverScene.cs
+//Author: Zihan Xu
+//Student Number: 101288760
+//Last Modified On : 10/23/2021
+//Description : Class for GameOverScene
+//Revision History:
+//10/23/2021: Implement feature of changing scenes and setting level data
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -13,19 +22,23 @@ public class GameOverScene : MonoBehaviour
     public AudioClip WinMusic;
     public AudioClip LoseMusic;
     
-    // Start is called before the first frame update
+    // Based on Leveldata set text content and BGM
     void Start()
     {
         bool isWin = GameObject.Find("GameController").GetComponent<LevelData>().isWin;
         if (isWin)
         {
             WinText.text = "YOU WIN";
-            //audioSource.clip = WinMusic;
+            /*Debug.Log(WinMusic);
+            audioSource.clip = WinMusic;
+            audioSource.Play();*/
         }
         else
         {
             WinText.text = "GAME OVER";
-            //audioSource.clip = LoseMusic;
+            /*Debug.Log(LoseMusic);
+            audioSource.clip = LoseMusic;
+            audioSource.Play();*/
         }
 
         ScoreText.text = "Score: " + GameObject.Find("GameController").GetComponent<LevelData>().Score.ToString();

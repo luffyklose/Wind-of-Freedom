@@ -1,3 +1,19 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FileName: Slime.cs
+//Author: Zihan Xu
+//Student Number: 101288760
+//Last Modified On : 10/23/2021
+//Description : Class for Slime
+//Revision History:
+//10/19/2021:
+//Set animation parameters;
+//10/22/2021:
+//Add basic AI features;
+//Draw Gizmo;
+//Update data and slime's state;
+//10/24/2021:
+//Add sound effects;
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,6 +63,7 @@ public class Slime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Update attack counter
         if (!isActive)
             return;
         AttackCounter += Time.deltaTime;
@@ -54,11 +71,15 @@ public class Slime : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Do nothing if Slime is hit or died
         if (isHit || !isActive)
         {
             return;
         }
         
+        //Move to player when the distance between player and slime is smaller than detect radius.
+        //Attack player when the distanced is smaller than attack radius
+        //Keep idle when the distance is bigger than detect radius
         float DisToPlayer = Vector3.Distance(Player.transform.position, transform.position);
         if (DisToPlayer <= DetectRadius && DisToPlayer >= AttackRadius)
         {
@@ -107,6 +128,7 @@ public class Slime : MonoBehaviour
         }
     }
 
+    //Draw auxiliary lines to show the detection range and attack range
     private void OnDrawGizmos()
     {
         //draw a circle to show the detect and attack circle
@@ -170,6 +192,7 @@ public class Slime : MonoBehaviour
         Gizmos.matrix = defaultMatrix;
     }
 
+    //Get attack direction for animation
     private void GetAttackDir()
     {
         if (Player.transform.position.x < transform.position.x - 0.5f)
@@ -194,6 +217,7 @@ public class Slime : MonoBehaviour
         }
     }
 
+    //Update HP and check death state
     public void DecHP(float damage, int AttackDir)
     {
         //Debug.Log("beikanle");
@@ -236,6 +260,7 @@ public class Slime : MonoBehaviour
         isHit = false;
     }
 
+    //Play death sound effect and destroy itself. Generate a key when necessary
     private IEnumerator Die()
     {
         Debug.Log("sile");

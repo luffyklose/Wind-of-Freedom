@@ -1,3 +1,21 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FileName: Player.cs
+//Author: Zihan Xu
+//Student Number: 101288760
+//Last Modified On : 10/23/2021
+//Description : Class for Player
+//Revision History:
+//9/30/2021:
+//Implement basic movement
+//10/20/2021:
+//Implement basic attack;
+//Set basic data;
+//Implement heart and score UI display;
+//Implement hurt and death;
+//10/23/2021:
+//Add sound effect;
+//Implement touch control
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,7 +74,8 @@ public class Player : MonoBehaviour
         b_isAlive = true;
 
         HP = MaxHP;
-
+        
+        //add hearts based on player's HP
         for (int i = 0; i < Hearts.Length; i++)
         {
             if (i < MaxHP)
@@ -74,13 +93,14 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        //Get attack input
         if (playerInput.actions["Attack"].triggered && !b_isAttacking)
         {
             //Debug.Log("Attack");
             StartCoroutine(Attack());
         }
         
-        //test code
+        //test code for player's death
         if (Input.GetKeyDown(KeyCode.U))
         {
             StartCoroutine(Die());
@@ -96,6 +116,7 @@ public class Player : MonoBehaviour
        //Debug.Log(m_animator.GetFloat("moveX") + " " + m_animator.GetFloat("moveY"));
     }
 
+    //Change the face diretion
     private void Flip()
     {
         b_isFacingRight = !b_isFacingRight;
@@ -138,6 +159,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Play attack animations
     private IEnumerator Attack()
     {
         b_isAttacking = true;
@@ -148,9 +170,10 @@ public class Player : MonoBehaviour
         m_animator.ResetTrigger("Attack");
     }
 
+    //Play hurt animations.
+    //Check if the player is died.
     public void GetHurt(int AttackDir)
     {
-        //Debug.Log("aaaaa");
         m_animator.SetTrigger("BeHit");
         audiosource.PlayOneShot(BeHitFX);
         switch (AttackDir)
@@ -191,6 +214,7 @@ public class Player : MonoBehaviour
         }
     }
 
+    //sprite becomes translucent for a second and destroy.
     private IEnumerator Die()
     {
         audiosource.PlayOneShot(DieFX);
@@ -223,6 +247,7 @@ public class Player : MonoBehaviour
         return b_hasKey;
     }
 
+    //Update score and pass the value to level data
     public void AddScore(int score)
     {
         m_score += score;
