@@ -12,7 +12,7 @@ public class GameOverScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bool isWin = GameObject.Find("LevelDate").GetComponent<LevelData>().isWin;
+        bool isWin = GameObject.Find("GameController").GetComponent<LevelData>().isWin;
         if (isWin)
         {
             WinText.text = "YOU WIN";
@@ -22,7 +22,7 @@ public class GameOverScene : MonoBehaviour
             WinText.text = "GAME OVER";
         }
 
-        ScoreText.text = "Score: " + GameObject.Find("LevelDate").GetComponent<LevelData>().Score.ToString();
+        ScoreText.text = "Score: " + GameObject.Find("GameController").GetComponent<LevelData>().Score.ToString();
     }
 
     // Update is called once per frame

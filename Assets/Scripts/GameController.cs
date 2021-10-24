@@ -18,12 +18,14 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player.gameObject.activeSelf)
+        if (player != null)
         {
-            Debug.Log("abcde");
-            GameObject.Find("GameController").GetComponent<LevelData>().isWin = false;
-            GameObject.Find("GameController").GetComponent<LevelData>().Score = player.getScore();
-            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
+            if (!player.b_isAlive)
+            {
+                GameObject.Find("GameController").GetComponent<LevelData>().isWin = false;
+                GameObject.Find("GameController").GetComponent<LevelData>().Score = player.getScore();
+                UnityEngine.SceneManagement.SceneManager.LoadScene("GameOverScene", LoadSceneMode.Single);
+            }
         }
     }
 }

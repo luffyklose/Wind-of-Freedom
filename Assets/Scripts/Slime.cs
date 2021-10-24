@@ -26,12 +26,19 @@ public class Slime : MonoBehaviour
     public bool HasKey;
     public int score;
 
+    [Header("Audio")] 
+    private AudioSource audioSource;
+    public AudioClip AttackFX;
+    public AudioClip BeHitFX;
+    public AudioClip DieFX;
+
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindWithTag("Player").GetComponent<Player>();
         rigidBody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         HP = MaxHP;
     }
@@ -54,11 +61,6 @@ public class Slime : MonoBehaviour
         {
             //Move to player
             rigidBody.velocity = (Player.transform.position - transform.position).normalized * MoveSpeed;
-            
-            //Debug.Log(Dir);
-            //Vector3 move = (Player.position - transform.position).normalized * MoveSpeed * Time.deltaTime;
-            //rigidBody.MovePosition(transform.position + move);
-            //transform.position = Vector3.MoveTowards(transform.position, Player.position, MoveSpeed * Time.deltaTime);
         }
         else if (DisToPlayer <= AttackRadius && AttackCounter >= AttackInterval)
         {
@@ -66,6 +68,7 @@ public class Slime : MonoBehaviour
             animator.SetTrigger("Attack");
             AttackCounter = 0.0f;
             rigidBody.velocity =Vector2.zero;
+            audioSource.PlayOneShot(AttackFX);
         }
         else if (DisToPlayer >= DetectRadius)
         {
@@ -194,6 +197,7 @@ public class Slime : MonoBehaviour
         HP -= damage;
         animator.SetTrigger("BeHit");
         isHit = true;
+        audioSource.PlayOneShot(BeHitFX);
         switch (AttackDir)
         {
             //1:up 2:right 3:down 4:left
@@ -220,6 +224,7 @@ public class Slime : MonoBehaviour
             }
 
             Player.AddScore(score);
+            audioSource.PlayOneShot(DieFX);
             this.gameObject.SetActive(false);
         }
         else

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -13,12 +14,14 @@ public class Player : MonoBehaviour
     private bool b_isFacingRight;
     private bool b_isAttacking;
     private bool b_hasKey;
+    public bool b_isAlive;
     private int m_score = 0;
 
-    public Rigidbody2D m_rigidbody;
-    public Animator m_animator;
-    public SpriteRenderer spriteRenderer;
-    public Color color;
+    private Rigidbody2D m_rigidbody;
+    private Animator m_animator;
+    private SpriteRenderer spriteRenderer;
+    private Color color;
+    private PlayerInput playerInput;
 
     [Header("Attribute")] 
     public int MaxHP;
@@ -31,6 +34,13 @@ public class Player : MonoBehaviour
     public Sprite EmptyHeart;
     public Text ScoreText;
 
+    [Header("Audio")] 
+    private AudioSource audiosource;
+    public AudioClip AttackFX;
+    public AudioClip BeHitFX;
+    public AudioClip DieFX;
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +48,11 @@ public class Player : MonoBehaviour
         m_animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         color = spriteRenderer.color;
+        audiosource = GetComponent<AudioSource>();
+        playerInput = GetComponent<PlayerInput>();
         
         b_isFacingRight = true;
+        b_isAlive = true;
 
         HP = MaxHP;
 
@@ -60,7 +73,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1") && !b_isAttacking)
+        if (playerInput.actions["Attack"].triggered && !b_isAttacking)
         {
             //Debug.Log("Attack");
             StartCoroutine(Attack());
@@ -87,7 +100,9 @@ public class Player : MonoBehaviour
     private void Move()
     {
         //Basic Movement Scripts
-        m_rigidbody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        // m_rigidbody.velocity = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        Vector2 input = playerInput.actions["Move"].ReadValue<Vector2>();
+        m_rigidbody.velocity = input;
         m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_moveSpeed;
 
         if (m_rigidbody.velocity.magnitude > Double.Epsilon)
@@ -119,13 +134,10 @@ public class Player : MonoBehaviour
     private IEnumerator Attack()
     {
         b_isAttacking = true;
-        //m_animator.SetBool("isAttacking",b_isAttacking);
-        //Debug.Log("Start attacking" + m_animator.GetBool("isAttacking"));
         m_animator.SetTrigger("Attack");
+        audiosource.PlayOneShot(AttackFX);
         yield return new WaitForSeconds(0.3f);
         b_isAttacking = false;
-        //m_animator.SetBool("isAttacking",b_isAttacking);
-        //Debug.Log("Stop attacking" + m_animator.GetBool("isAttacking"));
         m_animator.ResetTrigger("Attack");
     }
 
@@ -133,6 +145,7 @@ public class Player : MonoBehaviour
     {
         //Debug.Log("aaaaa");
         m_animator.SetTrigger("BeHit");
+        audiosource.PlayOneShot(BeHitFX);
         switch (AttackDir)
         {
             //1:up 2:right 3:down 4:left
@@ -173,12 +186,14 @@ public class Player : MonoBehaviour
 
     private IEnumerator Die()
     {
+        audiosource.PlayOneShot(DieFX);
         color.a = 0.5f;
         spriteRenderer.color = color;
         yield return new WaitForSeconds(0.5f);
         color.a = 0.25f;
         spriteRenderer.color = color;
         yield return new WaitForSeconds(0.5f);
+        b_isAlive = false;
         this.gameObject.SetActive(false);
     }
 
