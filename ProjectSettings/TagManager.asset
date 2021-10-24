@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -44,8 +45,14 @@ TagManager:
   - name: Background
     uniqueID: 231075457
     locked: 0
+  - name: Portal
+    uniqueID: 1672004975
+    locked: 0
   - name: SolidObjects
     uniqueID: 14943681
+    locked: 0
+  - name: Item
+    uniqueID: 393581453
     locked: 0
   - name: Enemy
     uniqueID: 804988479
